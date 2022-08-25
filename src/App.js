@@ -53,7 +53,7 @@ function Counter (){
   return(
     <div className="counter-container">
       <button className='like' onClick={()=> setLike(like+1)}> 👍 <span>{like}</span></button>
-      <button className='dislike' onClick={()=>setDisLike( disLike+1)}>  👎{disLike}</button>
+      <button className='dislike' onClick={()=>setDisLike( disLike+1)}>  👎 <span>{disLike}</span></button>
     </div>
   )
 }

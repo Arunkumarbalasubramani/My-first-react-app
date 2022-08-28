@@ -60,14 +60,7 @@ function App() {
               
               },
 
-    {
-      name: "Avengers: Endgame",
-      rating: "8.4 ⭐",
-      poster:
-        "https://lumiere-a.akamaihd.net/v1/images/p_avengersendgame_19751_e14a0104.jpeg?region=0%2C0%2C540%2C~810",
-      summary:
-        "After Thanos, an intergalactic warlord, disintegrates half of the universe, the Avengers must reunite and assemble again to reinvigorate their trounced allies and restore balance.",
-    },
+   
     {
       name: "Interstellar",
       rating: "8.6 ⭐",

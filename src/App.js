@@ -63,14 +63,14 @@ function App() {
   return (
     <div className="App">
       <section className="movies-list">
-        {movieList.map((movie) => {
+      {movieList.map((element) => (
           <Movie
-            name={movie.name}
-            rating={movie.rating}
-            poster={movie.poster}
-            summary={movie.summary}
-          />;
-        })}
+            name={element.name}
+            rating={element.rating}
+            poster={element.poster}
+            summary={element.summary}
+          />
+        ))}
         {/* <Movie name ='Avengers: Endgame' rating ='8.4 ⭐' poster ='https://lumiere-a.akamaihd.net/v1/images/p_avengersendgame_19751_e14a0104.jpeg?region=0%2C0%2C540%2C~810' summary='After Thanos, an intergalactic warlord, disintegrates half of the universe, the Avengers must reunite and assemble again to reinvigorate their trounced allies and restore balance.'/>
       <Movie name ='Interstellar' rating ='8.6 ⭐' poster ='https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg' summary='When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.' />
       <Movie name ='Justice league' rating ='6.1⭐' poster ='https://images-na.ssl-images-amazon.com/images/I/91JNWWQKGgL._RI_.jpg' summary='Steppenwolf and his Parademons return after eons to capture Earth. However, Batman seeks the help of Wonder Woman to recruit and assemble Flash, Cyborg and Aquaman to fight the powerful new enemy.'/>

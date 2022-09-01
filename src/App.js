@@ -1,6 +1,10 @@
-import logo from "./logo.svg";
+
 import "./App.css";
-import { useState } from "react";
+
+import { Routes, Route, Link } from "react-router-dom";
+import {  AddColor,ColorBox } from "./color-game.js";
+import { Counter,Movie, Moviepage  } from "./MoviesList";
+import { Home } from "./Home";
 
 function App() {
   const movieList = [
@@ -108,64 +112,26 @@ function App() {
         "Bruce Wayne and  Diana Prince plans to recruit a team of metahumans to protect the world from an approaching threat of Darkseid. The task proves more difficult than Bruce imagined, as each of the recruits must face the demons of their own pasts. United ; Batman, Wonder Woman, Aquaman, Cyborg and the Flash must save the planet from Steppenwolf, DeSaad and Darkseid and their dreadful intentions",
     },
   ];
-
   return (
     <div className="App">
-      <section className="movies-list">
-      {movieList.map((element) => (
-          <Movie
-            name={element.name}
-            rating={element.rating}
-            poster={element.poster}
-            summary={element.summary}
-          />
-        ))}
+
+      <ul>
+        <li><Link to="/">Home</Link> </li>
+        <li><Link to="/movies">Movies App</Link> </li>
+        <li><Link to="/color-game">Color Game</Link></li>
+ 
+      </ul>
+        <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movies" element={<Moviepage movieList ={movieList} />} />
+        <Route path="/color-game" element={<AddColor />} />
+      </Routes>
    
-      </section>
+
+   
     </div>
   );
 }
 
-// function Welcome(props) {
 
-//   return(
-//     <div className= 'container'>
-//       <img className='profile-pic'src={props.profile} alt="profile Pic" />
-//       <h3> Let us learn react {props.name}</h3>
-//       <Counter/>
-//     </div>
-//   )
-// }
-
-function Movie(props) {
-  return (
-    <div className="movie-container">
-      <img className="movie-poster" src={props.poster} alt="" />
-      <div className="movie-specs">
-        <h3 className="movie-name">{props.name} </h3>
-        <p className="movie-rating">{props.rating}</p>
-      </div>
-      <div className="movie-summary">
-        <p className="movie-summary">{props.summary}</p>
-      </div>
-      <Counter />
-    </div>
-  );
-}
-function Counter() {
-  const [like, setLike] = useState(0);
-  const [disLike, setDisLike] = useState(0);
-  return (
-    <div className="counter-container">
-      <button className="like" onClick={() => setLike(like + 1)}>
-        {" "}
-        👍 <span>{like}</span>
-      </button>
-      <button className="dislike" onClick={() => setDisLike(disLike + 1)}>
-        {" "}
-        👎 <span>{disLike}</span>
-      </button>
-    </div>
-  );
-}
 export default App;

@@ -3,6 +3,7 @@
 .App {
   text-align: center;
   font-family:  'Poppins', sans-serif;
+  margin: 15px;
 }
 
 .movies-list{
@@ -41,4 +42,8 @@ gap:10px;
 .like,.dislike{
   font-size:20px;
   margin-bottom: 20px;
+}
+
+.colors-div{
+  margin:8% 0 0 43%;
 }

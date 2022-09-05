@@ -4,6 +4,7 @@
   text-align: center;
   font-family:  'Poppins', sans-serif;
   margin: 15px;
+
 }
 
 .movies-list{
@@ -46,4 +47,19 @@ gap:10px;
 
 .colors-div{
   margin:8% 0 0 43%;
+}
+.not-found{
+  width:55%;
+  object-fit: cover;
+}
+
+
+.input-fields{
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  padding:20px;
+  margin-left: 10px;
+  /* justify-content: center ;
+  align-items: center; */
 }

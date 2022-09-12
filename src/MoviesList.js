@@ -1,55 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import Switch from "@mui/material/Switch";
 
-function Moviepage({ movieList, setMovieList }) {
-  const [name, setName] = useState("");
-  const [rating, setRating] = useState("");
-  const [poster, setPoster] = useState("");
-  const [summary, setSummary] = useState("");
+function Moviepage({ movieList }) {
   return (
     <div className="movies">
-      <div className="add-movie-form">
-        <h1> You can Add Movies Here 🎉 🎊 🎊 </h1>
-        <div className="input-fields">
-          <input
-            type="text"
-            name="Movie-name"
-            placeholder="Name of the Movie"
-            onChange={(event) => setName(event.target.value)}
-          />
-          <input
-            type="text"
-            name="Movie-rating"
-            placeholder="Rating"
-            onChange={(event) => setRating(event.target.value)}
-          />
-          <input
-            type="text"
-            name="poster"
-            placeholder="Poster"
-            onChange={(event) => setPoster(event.target.value)}
-          />
-          <input
-            type="text"
-            name="Movie-summary"
-            placeholder="summary"
-            onChange={(event) => setSummary(event.target.value)}
-          />
-          <button
-            onClick={() => {
-              const newMovie = {
-                name: name,
-                poster: poster,
-                rating: rating,
-                summary: summary,
-              };
-              setMovieList([...movieList, newMovie]);
-            }}
-          >
-            Add Movie
-          </button>
-        </div>
-      </div>
       <div className="movie-app">
         <section className="movies-list">
           {movieList.map((element, index) => (
@@ -74,20 +30,26 @@ function Movie(props) {
   };
   const [show, setShow] = useState(true);
   const navigate = useNavigate();
+  const label = { inputProps: { "aria-label": "Switch demo" } };
   return (
     <div className="movie-container">
       <img className="movie-poster" src={props.poster} alt="" />
       <div className="movie-specs">
         <h3 className="movie-name">
           {props.name}{" "}
-          <button
+          <Switch
+            {...label}
             onClick={() => {
               setShow(!show);
             }}
+            defaultChecked
+          />
+          <Button
+            onClick={() => navigate(`/movies/${props.id}`)}
+            variant="outlined"
           >
-            Toggle Summary
-          </button>
-          <button onClick={() => navigate(`/movies/${props.id}`)}>Info</button>
+            Info
+          </Button>
         </h3>
         <p style={styles} className="movie-rating">
           {props.rating}✪

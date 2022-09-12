@@ -1,11 +1,19 @@
 import "./App.css";
 
 import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
-import { AddColor, ColorBox } from "./color-game.js";
-import { Counter, Movie, Moviepage, AddMovies } from "./MoviesList";
+import { AddColor } from "./color-game.js";
+import { Moviepage } from "./MoviesList";
 import { Home } from "./Home";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Button from "@mui/material/Button";
+import { AddMovie } from "./AddMovie";
+
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+
+import Toolbar from "@mui/material/Toolbar";
+
 function App() {
   const initialMovieList = [
     {
@@ -97,22 +105,31 @@ function App() {
     },
   ];
   const [movieList, setMovieList] = useState(initialMovieList);
+  const navigate = useNavigate();
+  const styles = {
+    background: "#000",
+  };
   return (
     <div className="App">
-      <ul>
-        <li>
-          <Link to="/">Home</Link>{" "}
-        </li>
-        <li>
-          <Link to="/films">Movies App</Link>{" "}
-        </li>
-        <li>
-          <Link to="/color-game">Color Game</Link>
-        </li>
-        <li>
-          <Link to="/add-movies">Not a page </Link>
-        </li>
-      </ul>
+      <AppBar position="static" style={styles}>
+        <Toolbar>
+          <Button color="inherit" onClick={() => navigate("/")}>
+            Home
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/films")}>
+            Movies App
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/movies/add")}>
+            Add Movies{" "}
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/color-game")}>
+            Color Game
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/*")}>
+            404-Page
+          </Button>
+        </Toolbar>
+      </AppBar>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/films" element={<Navigate replace to="/movies" />} />
@@ -127,6 +144,12 @@ function App() {
         <Route
           path="/movies/:id"
           element={<MovieDetails movieList={movieList} />}
+        />
+        <Route
+          path="/movies/add"
+          element={
+            <AddMovie movieList={movieList} setMovieList={setMovieList} />
+          }
         />
         <Route path="*" element={<Navigate replace to="/404-not-found" />} />
         <Route path="/404-not-found" element={<NotFound />} />
@@ -177,7 +200,9 @@ function MovieDetails({ movieList }) {
         <div className="movie-summary">
           <p className="movie-summary">{movie.summary} </p>
         </div>
-        <button onClick={() => navigate("/movies")}> Back</button>
+        <Button variant="contained" onClick={() => navigate("/movies")}>
+          Back
+        </Button>
       </div>
     </div>
   );

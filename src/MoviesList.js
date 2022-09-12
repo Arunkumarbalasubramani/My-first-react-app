@@ -68,7 +68,7 @@ function Moviepage({ movieList, setMovieList }) {
   );
 }
 
-function Movie(props, id) {
+function Movie(props) {
   const styles = {
     color: props.rating > 8 ? "green" : "red",
   };
@@ -87,7 +87,7 @@ function Movie(props, id) {
           >
             Toggle Summary
           </button>
-          <button onClick={() => navigate(`/movies/${id}`)}>Info</button>
+          <button onClick={() => navigate(`/movies/${props.id}`)}>Info</button>
         </h3>
         <p style={styles} className="movie-rating">
           {props.rating}✪

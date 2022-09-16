@@ -1,9 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import * as React from "react";
+import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
+import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
+import Badge from "@mui/material/Badge";
+import { Card } from "@mui/material";
 import Button from "@mui/material/Button";
-import Switch from "@mui/material/Switch";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import Tooltip from "@mui/material/Tooltip";
 
-function Moviepage({ movieList }) {
+function Moviepage() {
+  const [movieList, setMovieList] = useState([]);
+
+  const navigate = useNavigate();
+  const getMovies = () => {
+    fetch("https://6321301b82f8687273adc273.mockapi.io/movie")
+      .then((response) => response.json())
+      .then((mvs) => setMovieList(mvs));
+  };
+
+  useEffect(() => {
+    getMovies();
+  }, []);
+
+  const deleteMovie = (id) => {
+    fetch(`https://6321301b82f8687273adc273.mockapi.io/movie/${id}`, {
+      method: "DELETE",
+    }).then(() => getMovies());
+  };
+
   return (
     <div className="movies">
       <div className="movie-app">
@@ -15,7 +45,32 @@ function Moviepage({ movieList }) {
               poster={element.poster}
               summary={element.summary}
               key={index}
-              id={index}
+              id={element.id}
+              deleteBtn={
+                <Tooltip title="Delete this Movie">
+                  <IconButton
+                    color="error"
+                    aria-label="delete"
+                    style={{ marginLeft: "auto" }}
+                    onClick={() => {
+                      deleteMovie(element.id);
+                    }}
+                  >
+                    <DeleteIcon />  
+                  </IconButton>
+                </Tooltip>
+              }
+              editbtn={
+                <Tooltip title="Edit this Movie">
+                  <IconButton
+                    color="secondary"
+                    onClick={() => navigate(`/movies/edit-movie/${element.id}`)}
+                    aria-label="edit-button"
+                  >
+                    <EditOutlinedIcon />
+                  </IconButton>
+                </Tooltip>
+              }
             />
           ))}
         </section>
@@ -29,51 +84,80 @@ function Movie(props) {
     color: props.rating > 8 ? "green" : "red",
   };
   const [show, setShow] = useState(true);
+
   const navigate = useNavigate();
-  const label = { inputProps: { "aria-label": "Switch demo" } };
+
   return (
-    <div className="movie-container">
+    <Card className="movie-container">
       <img className="movie-poster" src={props.poster} alt="" />
-      <div className="movie-specs">
-        <h3 className="movie-name">
-          {props.name}{" "}
-          <Switch
-            {...label}
-            onClick={() => {
-              setShow(!show);
-            }}
-            defaultChecked
-          />
-          <Button
-            onClick={() => navigate(`/movies/${props.id}`)}
-            variant="outlined"
-          >
-            Info
-          </Button>
-        </h3>
-        <p style={styles} className="movie-rating">
-          {props.rating}✪
-        </p>
-      </div>
-      <div className="movie-summary">
-        {show ? <p className="movie-summary">{props.summary} </p> : null}
-      </div>
-      <Counter />
-    </div>
+      <CardContent>
+        <div className="movie-specs">
+          <h3 className="movie-name">
+            {props.name}{" "}
+            <IconButton
+              onClick={() => navigate(`/movies/${props.id}`)}
+              color="primary"
+              aria-label="more-movie-info"
+            >
+              <InfoIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                setShow(!show);
+              }}
+              color="primary"
+              aria-label="toggle-summary-icon"
+            >
+              {show ? (
+                <KeyboardDoubleArrowUpIcon />
+              ) : (
+                <KeyboardDoubleArrowDownIcon />
+              )}
+            </IconButton>
+          </h3>
+          <p style={styles} className="movie-rating">
+            {props.rating}✪
+          </p>
+        </div>
+        <div className="movie-summary">
+          {show ? <p className="movie-summary">{props.summary} </p> : null}
+        </div>
+      </CardContent>
+      <CardActions>
+        {" "}
+        <Counter />
+        {props.deleteBtn}
+        {props.editbtn}
+      </CardActions>
+    </Card>
   );
 }
 
 function Counter() {
   const [like, setLike] = useState(0);
   const [disLike, setDisLike] = useState(0);
+
   return (
     <div className="counter-container">
-      <button className="like" onClick={() => setLike(like + 1)}>
-        👍 <span>{like}</span>
-      </button>
-      <button className="dislike" onClick={() => setDisLike(disLike + 1)}>
-        👎 <span>{disLike}</span>
-      </button>
+      <Badge badgeContent={like} color="primary">
+        <IconButton
+          onClick={() => setLike(like + 1)}
+          color="primary"
+          aria-label="like-Movie-button"
+        >
+          👍🏼
+        </IconButton>
+      </Badge>
+      <Badge badgeContent={disLike} color="error">
+        <IconButton
+          onClick={() => setDisLike(disLike + 1)}
+          color="error"
+          aria-label="disLike-Movie-button"
+        >
+          {" "}
+          👎🏼
+        </IconButton>
+      </Badge>{" "}
     </div>
   );
 }

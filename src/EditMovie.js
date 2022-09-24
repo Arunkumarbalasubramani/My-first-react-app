@@ -17,13 +17,16 @@ const editMovieValidaitonSchema = yup.object({
 
 export function EditMovie() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [movie, setMovie] = useState({});
+
+  const [movie, setMovie] = useState("");
   useEffect(() => {
     fetch(`https://6321301b82f8687273adc273.mockapi.io/movie/${id}`)
       .then((response) => response.json())
       .then((mv) => setMovie(mv));
   }, []);
+  return movie ? <EditMovieFunction movie={movie} /> : " Loading .....";
+}
+function EditMovieFunction({ movie }) {
   const { handleSubmit, values, handleChange, handleBlur, touched, errors } =
     useFormik({
       initialValues: {
@@ -35,21 +38,23 @@ export function EditMovie() {
       },
       validationSchema: editMovieValidaitonSchema,
       onSubmit: (editedmovie) => {
-        console.log(editedmovie);
-
-        // editMovie(editedmovie);
+        editMovie(editedmovie);
       },
     });
+  const navigate = useNavigate();
 
-  // const editMovie = (editedmovie) => {
-  //   fetch(`https://6321301b82f8687273adc273.mockapi.io/movie/${id}`, {
-  //     method: "PUT",
-  //     body: JSON.stringify(editedmovie),
-  //     headers: {
-  //       "Content-type": "application/json",
-  //     },
-  //   }).then(() => navigate("/movies"));
-  // };
+  const editMovie = async (editedmovie) => {
+    await fetch(
+      `https://6321301b82f8687273adc273.mockapi.io/movie/${movie.id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(editedmovie),
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    ).then(() => navigate("/movies"));
+  };
   return (
     <form onSubmit={handleSubmit}>
       <div className="edit-movie-form">
@@ -59,11 +64,11 @@ export function EditMovie() {
             error={touched.name && errors.name}
             helperText={touched.name && errors.name ? errors.name : null}
             name="name"
-            value={movie.name}
+            value={values.name}
             onChange={handleChange}
             onBlur={handleBlur}
             id="outlined-basic"
-            label={movie.name ? null : "Movie-Name"}
+            label="Movie-Name"
             variant="outlined"
             defaultValue={movie.name}
           />

@@ -56,7 +56,7 @@ function Moviepage() {
                       deleteMovie(element.id);
                     }}
                   >
-                    <DeleteIcon />  
+                    <DeleteIcon />
                   </IconButton>
                 </Tooltip>
               }

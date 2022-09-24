@@ -40,7 +40,7 @@ export function AddMovie() {
     // };
     fetch(`https://6321301b82f8687273adc273.mockapi.io/movie`, {
       method: "POST",
-      body: JSON.stringify(newMovie),
+      body: JSON.stringify([newMovie]),
       headers: {
         "Content-type": "application/json",
       },

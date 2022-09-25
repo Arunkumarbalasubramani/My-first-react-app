@@ -7,7 +7,7 @@ import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import Badge from "@mui/material/Badge";
 import { Card } from "@mui/material";
-import Button from "@mui/material/Button";
+import { API } from "./global";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
@@ -19,7 +19,7 @@ function Moviepage() {
 
   const navigate = useNavigate();
   const getMovies = () => {
-    fetch("https://6321301b82f8687273adc273.mockapi.io/movie")
+    fetch(`${API}/movies`)
       .then((response) => response.json())
       .then((mvs) => setMovieList(mvs));
   };
@@ -29,7 +29,7 @@ function Moviepage() {
   }, []);
 
   const deleteMovie = (id) => {
-    fetch(`https://6321301b82f8687273adc273.mockapi.io/movie/${id}`, {
+    fetch(`${API}/movies/${id}`, {
       method: "DELETE",
     }).then(() => getMovies());
   };

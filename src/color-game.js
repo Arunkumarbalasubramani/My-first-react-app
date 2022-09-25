@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function AddColor() {
   const [color, setColor] = useState("red");
-  // const[addColor,setNewColor]= useState('');
+  const [addColor, setNewColor] = useState("");
   const InitialColorList = ["red", "black", "green"];
   const [colorsList, setColorList] = useState(InitialColorList);
   const styles = {

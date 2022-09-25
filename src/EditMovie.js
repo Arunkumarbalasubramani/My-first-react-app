@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { API } from "./global";
 
 const editMovieValidaitonSchema = yup.object({
   name: yup.string().required("Why Not fill This Name ? 😉").min(5),
@@ -20,7 +21,7 @@ export function EditMovie() {
 
   const [movie, setMovie] = useState("");
   useEffect(() => {
-    fetch(`https://6321301b82f8687273adc273.mockapi.io/movie/${id}`)
+    fetch(`${API}/movies/${id}`)
       .then((response) => response.json())
       .then((mv) => setMovie(mv));
   }, []);

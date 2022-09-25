@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { API } from "./global";
 
 const editMovieValidaitonSchema = yup.object({
-  name: yup.string().required("Why Not fill This Name ? 😉").min(5),
+  name: yup.string().required("Why Not fill This Name ? 😉"),
   poster: yup.string().required("Why Not fill This poster ? 😉").min(4),
   rating: yup.number().required("Why Not fill This rating ? 😉").min(0).max(10),
   summary: yup.string().required("Why Not fill This summary ? 😉").min(20),

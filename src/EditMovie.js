@@ -19,7 +19,7 @@ const editMovieValidaitonSchema = yup.object({
 export function EditMovie() {
   const { id } = useParams();
 
-  const [movie, setMovie] = useState("");
+  const [movie, setMovie] = useState(null);
   useEffect(() => {
     fetch(`${API}/movies/${id}`)
       .then((response) => response.json())
@@ -44,17 +44,14 @@ function EditMovieFunction({ movie }) {
     });
   const navigate = useNavigate();
 
-  const editMovie = async (editedmovie) => {
-    await fetch(
-      `https://6321301b82f8687273adc273.mockapi.io/movie/${movie.id}`,
-      {
-        method: "PUT",
-        body: JSON.stringify(editedmovie),
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    ).then(() => navigate("/movies"));
+  const editMovie = (editedmovie) => {
+    fetch(`${API}/movies/${movie._id}`, {
+      method: "PUT",
+      body: JSON.stringify(editedmovie),
+      headers: {
+        "Content-type": "application/json",
+      },
+    }).then(() => navigate("/movies"));
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -71,7 +68,6 @@ function EditMovieFunction({ movie }) {
             id="outlined-basic"
             label="Movie-Name"
             variant="outlined"
-            defaultValue={movie.name}
           />
 
           <TextField
@@ -126,7 +122,7 @@ function EditMovieFunction({ movie }) {
             }
           />
 
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" color="success">
             Edit Movie
           </Button>
         </div>

@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from "./global";
 const movieValidaitonSchema = yup.object({
-  name: yup.string().required("Why Not fill This Name ? 😉").min(5),
+  name: yup.string().required("Why Not fill This Name ? 😉"),
   poster: yup.string().required("Why Not fill This poster ? 😉").min(4),
   rating: yup.number().required("Why Not fill This rating ? 😉").min(0).max(10),
   summary: yup.string().required("Why Not fill This summary ? 😉").min(20),

@@ -45,7 +45,7 @@ function Moviepage() {
               poster={element.poster}
               summary={element.summary}
               key={index}
-              id={element.id}
+              id={element._id}
               deleteBtn={
                 <Tooltip title="Delete this Movie">
                   <IconButton
@@ -53,7 +53,7 @@ function Moviepage() {
                     aria-label="delete"
                     style={{ marginLeft: "auto" }}
                     onClick={() => {
-                      deleteMovie(element.id);
+                      deleteMovie(element._id);
                     }}
                   >
                     <DeleteIcon />
@@ -64,7 +64,9 @@ function Moviepage() {
                 <Tooltip title="Edit this Movie">
                   <IconButton
                     color="secondary"
-                    onClick={() => navigate(`/movies/edit-movie/${element.id}`)}
+                    onClick={() =>
+                      navigate(`/movies/edit-movie/${element._id}`)
+                    }
                     aria-label="edit-button"
                   >
                     <EditOutlinedIcon />
